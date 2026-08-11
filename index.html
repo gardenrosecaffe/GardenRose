@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5c8d7" />
+  <meta name="description" content="Garden Rose is an elegant maid café inspired by roses, warm hospitality, handcrafted desserts and charming themed experiences." />
+  <title>Garden Rose — Maid Café</title>
+  <style>
+    :root {
+      --bg: #fff9fb;
+      --paper: rgba(255, 255, 255, 0.78);
+      --paper-solid: #fffefe;
+      --rose-50: #fff2f6;
+      --rose-100: #fce1e9;
+      --rose-200: #f7c5d4;
+      --rose-300: #ee9eb8;
+      --rose-400: #dc7295;
+      --rose-500: #be5277;
+      --rose-600: #9f3e62;
+      --rose-700: #7a2d49;
+      --ink: #3b2932;
+      --muted: #7f6973;
+      --gold: #c69a63;
+      --green: #728b72;
+      --line: rgba(122, 45, 73, 0.12);
+      --shadow: 0 24px 70px rgba(93, 43, 61, 0.14);
+      --radius-lg: 30px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(247, 197, 212, 0.55), transparent 29%),
+        radial-gradient(circle at 95% 15%, rgba(238, 158, 184, 0.2), transparent 26%),
+        linear-gradient(180deg, #fffafb 0%, #fff7f9 44%, #fffdfd 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(2px);
+      opacity: .55;
+    }
+    body::before { width: 270px; height: 270px; right: -110px; top: 34%; background: #f9d8e3; }
+    body::after { width: 220px; height: 220px; left: -100px; bottom: 8%; background: #f7e6d5; }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, textarea { font: inherit; }
+
+    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 0;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(255,249,251,.94), rgba(255,249,251,.68));
+      border-bottom: 1px solid rgba(122, 45, 73, .06);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; letter-spacing: .04em; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(145deg, #fff, #f6cad8); border: 1px solid rgba(159,62,98,.2);
+      box-shadow: 0 10px 24px rgba(159,62,98,.13); color: var(--rose-600); font-size: 21px;
+    }
+    .brand small { display: block; color: var(--muted); font-family: Inter, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a { padding: 10px 13px; border-radius: 999px; color: #654f59; font-size: 14px; font-weight: 650; transition: .25s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rose-700); background: rgba(247,197,212,.45); }
+    .nav-cta { padding: 11px 16px !important; background: var(--rose-600) !important; color: #fff !important; box-shadow: 0 10px 25px rgba(159,62,98,.2); }
+    .menu-btn { display: none; border: 0; background: white; color: var(--rose-700); width: 42px; height: 42px; border-radius: 14px; box-shadow: 0 8px 25px rgba(87, 48, 64, .08); }
+
+    .hero { padding: 72px 0 52px; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 56px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); background: rgba(255,255,255,.68); border-radius: 999px; color: var(--rose-600); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: "✦"; font-size: 10px; }
+    h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; color: #412a35; }
+    h1 { margin: 22px 0 18px; font-size: clamp(52px, 7vw, 88px); line-height: .95; letter-spacing: -.045em; }
+    h1 span { color: var(--rose-500); font-style: italic; font-weight: 500; }
+    .hero p { font-size: 18px; line-height: 1.8; color: var(--muted); max-width: 650px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn { border: 0; border-radius: 999px; padding: 14px 20px; font-weight: 750; cursor: pointer; transition: transform .22s ease, box-shadow .22s ease, background .22s ease; display: inline-flex; align-items: center; gap: 9px; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, var(--rose-600), var(--rose-500)); color: white; box-shadow: 0 14px 28px rgba(159,62,98,.21); }
+    .btn-soft { background: rgba(255,255,255,.82); border: 1px solid var(--line); color: var(--rose-700); box-shadow: 0 12px 26px rgba(89,45,61,.07); }
+    .mini-stats { margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+    .mini-stats strong { display: block; font-size: 18px; color: var(--ink); margin-bottom: 2px; }
+
+    .hero-art { position: relative; min-height: 570px; }
+    .hero-card {
+      position: absolute; inset: 20px 20px 40px 50px; border-radius: 46px 46px 120px 46px;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,.4), transparent 45%),
+        linear-gradient(145deg, #f9dbe5 0%, #ecc0d1 42%, #c77e9a 100%);
+      box-shadow: var(--shadow); overflow: hidden; border: 1px solid rgba(255,255,255,.7);
+    }
+    .hero-card::before {
+      content: ""; position: absolute; width: 330px; height: 330px; border-radius: 50%; right: -60px; top: -80px;
+      background: radial-gradient(circle, rgba(255,255,255,.65) 0 3%, transparent 4% 8%, rgba(255,255,255,.18) 9% 10%, transparent 11%), radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 68%);
+    }
+    .arch { position: absolute; left: 14%; right: 14%; bottom: -5%; height: 77%; border-radius: 180px 180px 28px 28px; background: linear-gradient(#fff8fa, #fff); box-shadow: inset 0 0 0 1px rgba(122,45,73,.08), 0 35px 50px rgba(91,35,57,.13); display: grid; place-items: end center; overflow: hidden; }
+    .maid-silhouette { width: 72%; height: 79%; position: relative; }
+    .maid-silhouette .head { position:absolute; width: 90px; height: 100px; border-radius: 45% 45% 48% 48%; top: 3%; left: 50%; transform: translateX(-50%); background:#51333f; }
+    .maid-silhouette .hair { position:absolute; width: 142px; height: 175px; border-radius: 70px 70px 38px 38px; top: 0; left:50%; transform:translateX(-50%); background:#4a303a; }
+    .maid-silhouette .face { position:absolute; width: 75px; height: 83px; border-radius: 42% 42% 48% 48%; top: 17px; left:50%; transform:translateX(-50%); background:#f2d6cf; z-index:2; }
+    .maid-silhouette .bow { position:absolute; top: 100px; left:50%; transform:translateX(-50%); width: 105px; height: 34px; z-index:5; }
+    .maid-silhouette .bow:before, .maid-silhouette .bow:after { content:""; position:absolute; width:52px; height:32px; background:var(--rose-500); border-radius: 55% 15% 55% 15%; }
+    .maid-silhouette .bow:before { left: 0; transform: rotate(17deg); } .maid-silhouette .bow:after { right:0; transform: scaleX(-1) rotate(17deg); }
+    .maid-silhouette .body { position:absolute; width: 180px; height: 290px; left:50%; transform:translateX(-50%); top: 112px; background:#382832; border-radius: 64px 64px 24px 24px; }
+    .maid-silhouette .apron { position:absolute; width: 126px; height: 215px; left:50%; transform:translateX(-50%); top: 155px; background:#fff8f6; border-radius: 36px 36px 18px 18px; z-index:3; }
+    .maid-silhouette .skirt { position:absolute; width: 248px; height: 155px; left:50%; transform:translateX(-50%); top: 340px; background:#382832; border-radius: 50% 50% 25px 25px; }
+    .maid-silhouette .tray { position:absolute; width: 180px; height: 16px; border-radius:50%; background:#b99368; top: 265px; left: 63%; transform: rotate(-8deg); z-index:6; box-shadow: 0 4px 0 #8c6c4e; }
+    .maid-silhouette .cup { position:absolute; width: 42px; height: 44px; background:#fff; top: 224px; left: 74%; border-radius: 4px 4px 16px 16px; z-index:7; }
+    .maid-silhouette .cup:after { content:""; position:absolute; width:18px; height:20px; border:4px solid #fff; border-left:0; right:-15px; top:10px; border-radius:0 12px 12px 0; }
+    .floating-note { position:absolute; z-index:5; padding: 14px 16px; border-radius: 18px; background:rgba(255,255,255,.9); box-shadow:0 16px 35px rgba(76,33,49,.13); border:1px solid rgba(255,255,255,.8); font-weight:700; font-size:13px; }
+    .floating-note.one { left:0; top:80px; transform:rotate(-5deg); }
+    .floating-note.two { right:-6px; bottom:80px; transform:rotate(4deg); }
+    .rose-badge { position:absolute; right:20px; top:0; width:104px; height:104px; border-radius:50%; display:grid; place-items:center; text-align:center; color:white; background:var(--rose-600); border:6px solid rgba(255,255,255,.85); box-shadow:0 15px 35px rgba(128,46,76,.22); font-family:Georgia,serif; font-size:13px; line-height:1.15; transform:rotate(7deg); }
+
+    section { padding: 86px 0; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:34px; }
+    .section-head h2 { font-size: clamp(36px, 5vw, 56px); line-height:1; margin: 10px 0 0; letter-spacing:-.035em; }
+    .section-head p { max-width:520px; color:var(--muted); line-height:1.7; }
+
+    .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .feature { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:var(--radius-md); padding:26px; box-shadow:0 16px 40px rgba(95,54,68,.06); transition:.28s ease; }
+    .feature:hover { transform:translateY(-5px); box-shadow:0 22px 45px rgba(95,54,68,.11); }
+    .feature-icon { width:48px; height:48px; border-radius:16px; display:grid; place-items:center; background:var(--rose-100); color:var(--rose-700); font-size:22px; }
+    .feature h3 { margin:18px 0 8px; font-size:22px; }
+    .feature p { margin:0; color:var(--muted); line-height:1.7; font-size:14px; }
+
+    .menu-section { background:linear-gradient(180deg, rgba(255,255,255,.5), rgba(252,225,233,.24)); border-block:1px solid rgba(122,45,73,.06); }
+    .menu-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+    .menu-tabs button { border:1px solid var(--line); background:white; color:var(--muted); padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:700; }
+    .menu-tabs button.active { background:var(--rose-600); color:#fff; }
+    .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .menu-item { display:flex; justify-content:space-between; gap:18px; align-items:start; padding:21px; border-radius:18px; background:rgba(255,255,255,.84); border:1px solid var(--line); }
+    .menu-item h3 { font-family:Inter,sans-serif; margin:0 0 6px; font-size:16px; color:var(--ink); }
+    .menu-item p { margin:0; color:var(--muted); font-size:13px; line-height:1.55; }
+    .price { white-space:nowrap; font-family:Georgia,serif; color:var(--rose-600); font-weight:700; font-size:18px; }
+
+    .gallery-grid { display:grid; grid-template-columns:1.1fr .9fr .9fr; grid-auto-rows:210px; gap:14px; }
+    .gallery-card { position:relative; overflow:hidden; border-radius:24px; border:1px solid rgba(255,255,255,.75); box-shadow:0 18px 36px rgba(91,47,62,.09); isolation:isolate; }
+    .gallery-card::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 38%, rgba(48,26,35,.58)); z-index:1; }
+    .gallery-card::after { content:""; position:absolute; inset:-20%; background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.7), transparent 14%), radial-gradient(circle at 70% 45%, rgba(255,255,255,.45), transparent 11%); opacity:.55; }
+    .gallery-card.tall { grid-row:span 2; }
+    .gallery-card.wide { grid-column:span 2; }
+    .g1 { background:linear-gradient(135deg,#f1c0d1,#8e4966); }
+    .g2 { background:linear-gradient(135deg,#f8e3d1,#d59f79); }
+    .g3 { background:linear-gradient(135deg,#d9e4d4,#799074); }
+    .g4 { background:linear-gradient(135deg,#ead7e7,#9d719c); }
+    .g5 { background:linear-gradient(135deg,#f4cfd9,#bc718b); }
+    .gallery-label { position:absolute; z-index:2; left:18px; bottom:16px; color:#fff; }
+    .gallery-label strong { display:block; font-family:Georgia,serif; font-size:22px; }
+    .gallery-label span { font-size:12px; opacity:.82; }
+    .gallery-visual { position:absolute; inset:0; display:grid; place-items:center; font-size:72px; filter:drop-shadow(0 18px 24px rgba(60,30,42,.22)); }
+
+    .events { display:grid; grid-template-columns:.9fr 1.1fr; gap:22px; }
+    .event-feature { border-radius:30px; padding:34px; background:linear-gradient(145deg,#6f324e,#a34b70); color:white; min-height:360px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .event-feature::after { content:"🌹"; position:absolute; font-size:180px; right:-28px; bottom:-50px; opacity:.14; transform:rotate(-18deg); }
+    .event-feature h3 { color:white; font-size:38px; margin:18px 0 12px; }
+    .event-feature p { color:rgba(255,255,255,.8); line-height:1.75; max-width:420px; }
+    .event-list { display:grid; gap:12px; }
+    .event { display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:18px; padding:18px; background:rgba(255,255,255,.76); border:1px solid var(--line); border-radius:20px; }
+    .event-date { width:64px; height:64px; border-radius:17px; display:grid; place-items:center; background:var(--rose-100); color:var(--rose-700); line-height:1; font-weight:800; text-align:center; }
+    .event-date span { font-size:11px; letter-spacing:.12em; }
+    .event-date strong { font-size:22px; }
+    .event h4 { margin:0 0 6px; font-size:15px; }
+    .event p { margin:0; color:var(--muted); font-size:13px; }
+    .event-tag { padding:7px 9px; border-radius:999px; background:#fff; color:var(--rose-600); border:1px solid var(--line); font-size:11px; font-weight:800; }
+
+    .about-card { padding:44px; border-radius:34px; background:rgba(255,255,255,.76); border:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; gap:42px; align-items:center; box-shadow:0 25px 60px rgba(81,40,55,.07); }
+    .about-card h2 { font-size:50px; margin:10px 0 18px; }
+    .about-card p { color:var(--muted); line-height:1.85; }
+    .quote { padding:30px; border-radius:26px; background:linear-gradient(145deg,var(--rose-50),#fff); border:1px solid rgba(159,62,98,.12); font-family:Georgia,serif; font-size:28px; line-height:1.35; color:var(--rose-700); }
+    .quote small { display:block; margin-top:18px; font-family:Inter,sans-serif; font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; }
+
+    .contact-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:24px; }
+    .contact-info { padding:32px; border-radius:28px; background:#472d39; color:white; }
+    .contact-info h2 { color:white; font-size:44px; margin:12px 0; }
+    .contact-info p { color:rgba(255,255,255,.72); line-height:1.7; }
+    .contact-row { margin-top:28px; display:grid; gap:17px; }
+    .contact-row div { display:flex; gap:12px; align-items:center; color:rgba(255,255,255,.86); }
+    .contact-form { padding:30px; border-radius:28px; background:rgba(255,255,255,.8); border:1px solid var(--line); }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .field { display:grid; gap:7px; }
+    .field.full { grid-column:1/-1; }
+    .field label { font-size:12px; font-weight:750; color:#65515a; }
+    .field input, .field textarea { border:1px solid rgba(122,45,73,.13); background:#fff; border-radius:14px; padding:13px 14px; color:var(--ink); outline:none; transition:border .2s, box-shadow .2s; }
+    .field input:focus, .field textarea:focus { border-color:var(--rose-300); box-shadow:0 0 0 4px rgba(238,158,184,.15); }
+    .field textarea { resize:vertical; min-height:120px; }
+
+    footer { padding:34px 0 42px; border-top:1px solid var(--line); color:var(--muted); }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; align-items:center; flex-wrap:wrap; }
+    .footer-links { display:flex; gap:16px; font-size:13px; }
+
+    .reveal { opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media (max-width: 960px) {
+      .hero-grid, .about-card, .contact-grid, .events { grid-template-columns:1fr; }
+      .hero-art { min-height:520px; }
+      .feature-grid { grid-template-columns:1fr 1fr; }
+      .gallery-grid { grid-template-columns:1fr 1fr; }
+      .gallery-card.wide { grid-column:span 1; }
+      .section-head { align-items:start; flex-direction:column; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width:min(100% - 28px, 1180px); }
+      .nav-wrap { padding:12px 0; }
+      .menu-btn { display:grid; place-items:center; }
+      .nav-links { position:absolute; top:70px; left:14px; right:14px; flex-direction:column; align-items:stretch; background:rgba(255,255,255,.97); padding:12px; border:1px solid var(--line); border-radius:20px; box-shadow:0 18px 45px rgba(69,38,50,.14); display:none; }
+      .nav-links.open { display:flex; }
+      .nav-links a { text-align:center; }
+      .hero { padding-top:48px; }
+      .hero-grid { gap:26px; }
+      h1 { font-size:56px; }
+      .hero-art { min-height:450px; }
+      .hero-card { inset:10px 8px 28px 26px; border-radius:34px 34px 86px 34px; }
+      .floating-note.one { left:-4px; top:46px; }
+      .floating-note.two { right:0; bottom:44px; }
+      section { padding:65px 0; }
+      .feature-grid, .menu-grid, .gallery-grid { grid-template-columns:1fr; }
+      .gallery-card, .gallery-card.tall, .gallery-card.wide { grid-column:auto; grid-row:auto; min-height:240px; }
+      .about-card, .contact-info, .contact-form { padding:25px; }
+      .about-card h2, .contact-info h2 { font-size:38px; }
+      .quote { font-size:24px; }
+      .event { grid-template-columns:64px 1fr; }
+      .event-tag { grid-column:2; justify-self:start; }
+      .form-grid { grid-template-columns:1fr; }
+      .field.full { grid-column:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Garden Rose home">
+        <span class="brand-mark">🌹</span>
+        <span>Garden Rose<small>Maid Café</small></span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a class="active" href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#photos">Photos</a>
+        <a href="#events">Events</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Reserve a Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">A little garden of sweetness</span>
+          <h1>Welcome to<br><span>Garden Rose</span></h1>
+          <p>
+            Garden Rose is a charming maid café created for guests who want more than a simple coffee break. Step into a warm, rose-inspired atmosphere where attentive service, handmade sweets, themed drinks and playful hospitality come together in a memorable café experience.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Explore our menu <span>→</span></a>
+            <a class="btn btn-soft" href="#photos">View the café <span>♡</span></a>
+          </div>
+          <div class="mini-stats">
+            <div><strong>Handmade</strong> desserts & drinks</div>
+            <div><strong>Themed</strong> experiences</div>
+            <div><strong>Warm</strong> maid hospitality</div>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Decorative maid café illustration">
+          <div class="hero-card">
+            <div class="arch">
+              <div class="maid-silhouette" aria-hidden="true">
+                <div class="hair"></div><div class="face"></div><div class="head"></div>
+                <div class="bow"></div><div class="body"></div><div class="apron"></div><div class="skirt"></div>
+                <div class="tray"></div><div class="cup"></div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-note one">Freshly made every day ✨</div>
+          <div class="floating-note two">Tea • Cakes • Smiles</div>
+          <div class="rose-badge">Made with<br>rose-colored<br>magic</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container reveal">
+        <div class="section-head">
+          <div><span class="eyebrow">The Garden Rose experience</span><h2>More than a café.</h2></div>
+          <p>A polished, welcoming space designed around thoughtful service, delightful food and a touch of fantasy—without losing the comfort of a modern café.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><div class="feature-icon">🫖</div><h3>Signature Tea Service</h3><p>Seasonal teas, elegant lattes and café classics served with a gentle Garden Rose touch.</p></article>
+          <article class="feature"><div class="feature-icon">🍰</div><h3>Handmade Sweets</h3><p>Soft cakes, parfaits and charming desserts prepared to feel as special as they look.</p></article>
+          <article class="feature"><div class="feature-icon">🎀</div><h3>Maid Hospitality</h3><p>Friendly themed service focused on making every guest feel welcomed, celebrated and cared for.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="container reveal">
+        <div class="section-head">
+          <div><span class="eyebrow">Our favorites</span><h2>Garden Menu</h2></div>
+          <p>A sample menu for the website. You can replace every item, description and price with your real Garden Rose menu later.</p>
+        </div>
+        <div class="menu-tabs" id="menuTabs">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="drink">Drinks</button>
+          <button data-filter="sweet">Sweets</button>
+          <button data-filter="savory">Savory</button>
+        </div>
+        <div class="menu-grid" id="menuGrid">
+          <article class="menu-item" data-category="drink"><div><h3>Rose Garden Latte</h3><p>Creamy milk, espresso, rose aroma and delicate vanilla foam.</p></div><div class="price">S/ 18</div></article>
+          <article class="menu-item" data-category="sweet"><div><h3>Princess Strawberry Cake</h3><p>Vanilla sponge, fresh cream, strawberry layers and berry glaze.</p></div><div class="price">S/ 22</div></article>
+          <article class="menu-item" data-category="drink"><div><h3>Pink Blossom Soda</h3><p>Strawberry, lychee, lemon sparkle and rose-shaped ice.</p></div><div class="price">S/ 16</div></article>
+          <article class="menu-item" data-category="savory"><div><h3>Garden Omelette Rice</h3><p>Japanese-style omelette rice with a cute sauce decoration.</p></div><div class="price">S/ 28</div></article>
+          <article class="menu-item" data-category="sweet"><div><h3>Afternoon Parfait</h3><p>Soft serve, fruit, cookies, sponge cake and house berry cream.</p></div><div class="price">S/ 24</div></article>
+          <article class="menu-item" data-category="savory"><div><h3>Maid's Tea Sandwiches</h3><p>A light trio of delicate savory sandwiches served with salad.</p></div><div class="price">S/ 21</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="container reveal">
+        <div class="section-head">
+          <div><span class="eyebrow">A glimpse inside</span><h2>Photos</h2></div>
+          <p>These polished placeholders keep the page looking complete until you replace them with real photos of the café, dishes, staff and events.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-card tall g1"><div class="gallery-visual">☕</div><div class="gallery-label"><strong>Signature Drinks</strong><span>Garden Rose specials</span></div></div>
+          <div class="gallery-card g2"><div class="gallery-visual">🍓</div><div class="gallery-label"><strong>Sweet Moments</strong><span>Handmade desserts</span></div></div>
+          <div class="gallery-card g3"><div class="gallery-visual">🌿</div><div class="gallery-label"><strong>Our Garden</strong><span>A cozy atmosphere</span></div></div>
+          <div class="gallery-card wide g4"><div class="gallery-visual">🎀</div><div class="gallery-label"><strong>Maid Café Experience</strong><span>Warm service & themed activities</span></div></div>
+          <div class="gallery-card g5"><div class="gallery-visual">🌹</div><div class="gallery-label"><strong>Rose Details</strong><span>Our signature style</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="events">
+      <div class="container reveal">
+        <div class="section-head">
+          <div><span class="eyebrow">Something special</span><h2>Upcoming Events</h2></div>
+          <p>Garden Rose can host themed days, birthday celebrations, seasonal menus, photo sessions and limited café experiences.</p>
+        </div>
+        <div class="events">
+          <article class="event-feature">
+            <span class="eyebrow" style="color:white;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)">Featured Event</span>
+            <h3>Rose Tea Afternoon</h3>
+            <p>An elegant afternoon featuring a special tea set, seasonal desserts, mini games and a limited Garden Rose souvenir.</p>
+            <a class="btn btn-soft" style="margin-top:16px" href="#contact">Ask about reservations →</a>
+          </article>
+          <div class="event-list">
+            <article class="event"><div class="event-date"><span>AUG</span><strong>22</strong></div><div><h4>Summer Maid Festival</h4><p>Limited drinks, themed outfits and special photo cards.</p></div><span class="event-tag">Seasonal</span></article>
+            <article class="event"><div class="event-date"><span>SEP</span><strong>05</strong></div><div><h4>Garden Rose Birthday Night</h4><p>Celebrate with cake, music and exclusive menu items.</p></div><span class="event-tag">Special</span></article>
+            <article class="event"><div class="event-date"><span>SEP</span><strong>19</strong></div><div><h4>Classic Tea Ceremony</h4><p>A slower, refined café session focused on tea and sweets.</p></div><span class="event-tag">Limited</span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container reveal">
+        <div class="about-card">
+          <div>
+            <span class="eyebrow">Our story</span>
+            <h2>A café made to feel like a little escape.</h2>
+            <p>Garden Rose is a maid café concept inspired by delicate gardens, classic café culture and the joy of being treated like an honored guest. Our goal is to create a beautiful, comfortable place where people can enjoy delicious food, share moments with friends, celebrate special occasions and experience the playful charm of maid café hospitality.</p>
+            <p>Whether you visit for a quiet dessert, a themed event or simply a memorable afternoon, Garden Rose is designed to feel welcoming from the moment you enter.</p>
+          </div>
+          <div class="quote">“A soft little corner where roses, sweets and hospitality bloom together.”<small>Garden Rose philosophy</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <span class="eyebrow" style="color:white;border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.06)">Visit us</span>
+            <h2>Come say hello.</h2>
+            <p>Use this section for reservations, questions, collaborations or private events. Replace the sample information with your real address and social networks.</p>
+            <div class="contact-row">
+              <div><span>📍</span><span>Lima, Peru — Address coming soon</span></div>
+              <div><span>🕒</span><span>Tue–Sun · 12:00 PM – 9:00 PM</span></div>
+              <div><span>✉️</span><span>hello@gardenrose.cafe</span></div>
+              <div><span>♡</span><span>@GardenRoseCafe</span></div>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-grid">
+              <div class="field"><label for="name">Name</label><input id="name" placeholder="Your name" required></div>
+              <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@example.com" required></div>
+              <div class="field full"><label for="reason">Reason</label><input id="reason" placeholder="Reservation, event, collaboration..."></div>
+              <div class="field full"><label for="message">Message</label><textarea id="message" placeholder="Tell us how we can help..."></textarea></div>
+              <div class="field full"><button class="btn btn-primary" type="submit">Send message →</button></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Garden Rose Maid Café. All rights reserved.</div>
+      <div class="footer-links"><a href="#home">Home</a><a href="#menu">Menu</a><a href="#photos">Photos</a><a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const tabs = document.querySelectorAll('#menuTabs button');
+    const items = document.querySelectorAll('.menu-item');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      items.forEach(item => item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'flex' : 'none');
+    }));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const links = [...document.querySelectorAll('.nav-links a[href^="#"]')].filter(a => !a.classList.contains('nav-cta'));
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(section => spy.observe(section));
+
+    document.getElementById('contactForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const button = event.currentTarget.querySelector('button[type="submit"]');
+      const original = button.textContent;
+      button.textContent = 'Message ready ✓';
+      button.disabled = true;
+      setTimeout(() => { button.textContent = original; button.disabled = false; }, 1800);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
