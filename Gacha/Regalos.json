@@ -1,0 +1,10 @@
+{
+  "_nota": "Regalos de Pétalos: cada id se acredita una sola vez por persona (u = nombre de VRChat, sin importar espacios ni mayúsculas). No reutilizar ids.",
+  "regalos": [
+    {
+      "id": "yumi-2026-11-21-60",
+      "u": "YumiYuii",
+      "p": 60
+    }
+  ]
+}
